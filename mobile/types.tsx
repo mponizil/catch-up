@@ -4,8 +4,14 @@
  */
 
 export type RootStackParamList = {
+  Auth: undefined
   Root: undefined
   NotFound: undefined
+}
+
+export type AuthParamList = {
+  SignIn: undefined
+  VerifyPhone: undefined
 }
 
 export type BottomTabParamList = {

@@ -10,6 +10,12 @@ export default {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
+      Auth: {
+        screens: {
+          SignIn: 'sign-in',
+          VerifyPhone: 'verify-phone',
+        },
+      },
       Root: {
         screens: {
           Feed: {

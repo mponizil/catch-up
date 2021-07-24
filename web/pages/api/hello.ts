@@ -6,5 +6,14 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const session = await getSession({ req })
-  res.json(session)
+  if (session) {
+    res.json(session)
+  } else {
+    res.status(403).json({
+      error: {
+        code: '403_001',
+        message: 'no active session',
+      },
+    })
+  }
 }

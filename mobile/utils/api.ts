@@ -1,3 +1,6 @@
+import qs from 'query-string'
+import config from './config'
+
 const sleep = (delay: number) =>
   new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -13,6 +16,92 @@ export interface IContact {
   photoUrl: string
   status: Status
 }
+
+export interface ApiRequestOptions {
+  method?: string
+  body?: object
+}
+
+const api = async (endpoint: string, options: ApiRequestOptions = {}) => {
+  const method = options.method || 'get'
+  const body = options.body ? JSON.stringify(options.body) : undefined
+  console.info(`(api) [${method}] ${endpoint} start`, body)
+  const result = await fetch(`${config.api.host}${endpoint}`, {
+    method,
+    body,
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+  })
+    .then((httpResponse) => {
+      if (!httpResponse.ok) {
+        console.warn('(api) response not ok', httpResponse.status)
+      }
+      return httpResponse
+    })
+    .then((httpResponse) => httpResponse.text())
+    .then((text) => {
+      try {
+        return JSON.parse(text)
+      } catch {
+        console.warn(`(api) error parsing response as json`)
+        return {
+          error: {
+            code: '500',
+            message: 'error parsing response as json',
+            data: {
+              responseText: text,
+            },
+          },
+        }
+      }
+    })
+  if (!result?.error) {
+    console.info(`(api) [${method}] ${endpoint} result`, result)
+  }
+  return result
+}
+
+const signIn = async (phone: string) => {
+  const { csrfToken } = await api('/api/auth/csrf')
+  await api('/api/auth/signin/email', {
+    method: 'post',
+    body: {
+      csrfToken,
+      email: phone,
+    },
+  })
+}
+
+const signOut = async () => {
+  const { csrfToken } = await api('/api/auth/csrf')
+  await api('/api/auth/signout', {
+    method: 'post',
+    body: {
+      csrfToken,
+    },
+  })
+}
+
+const verifyPhone = async ({
+  phone,
+  token,
+}: {
+  phone: string
+  token: string
+}) => {
+  const params = {
+    email: phone,
+    token,
+  }
+  const query = qs.stringify(params)
+  await api(`/api/auth/callback/email?${query}`, {
+    method: 'post',
+  })
+}
+
+const hello = async () => api('/api/hello')
 
 const me = async () => {
   await sleep(200)
@@ -89,6 +178,10 @@ const feed = async () => {
 }
 
 export default {
+  signIn,
+  signOut,
+  verifyPhone,
+  hello,
   me,
   feed,
 }
