@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { StyleSheet, Image, ScrollView } from 'react-native'
+import { Image, ScrollView } from 'react-native'
 import useAsync from 'react-use/lib/useAsync'
+import tw from 'tailwind-rn'
 
 import { Text, View } from '../components/Themed'
 import api, { Status, IContact } from '../utils/api'
@@ -13,12 +14,12 @@ const FeedSection = ({
   contacts: IContact[]
 }) => {
   return (
-    <View style={styles.section}>
-      <Text style={styles.sectionTitle}>{title}</Text>
+    <View style={tw('p-4')}>
+      <Text style={tw('text-lg font-bold')}>{title}</Text>
       {contacts.map((contact) => (
-        <View style={styles.row} key={contact.id}>
+        <View style={tw('flex-row mb-4')} key={contact.id}>
           <Image
-            style={styles.avatar}
+            style={tw('w-32 h-32 rounded-full')}
             source={{
               uri: contact.photoUrl,
             }}
@@ -43,7 +44,7 @@ export default function FeedScreen() {
 
   if (loadingMe || loadingFeed) {
     return (
-      <View style={styles.container}>
+      <View style={tw('flex-auto')}>
         <Text>Loading ...</Text>
       </View>
     )
@@ -51,7 +52,7 @@ export default function FeedScreen() {
 
   if (errorMe || errorFeed) {
     return (
-      <View style={styles.container}>
+      <View style={tw('flex-auto')}>
         <Text>Error :(</Text>
       </View>
     )
@@ -61,8 +62,8 @@ export default function FeedScreen() {
   const busy = feed!.filter((contact) => contact.status === Status.Busy)
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.section}>
+    <ScrollView style={tw('flex-auto')}>
+      <View style={tw('p-4')}>
         <Text>
           Hi, {me!.firstName} {me!.lastName}
         </Text>
@@ -73,25 +74,3 @@ export default function FeedScreen() {
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  section: {
-    padding: 20,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  row: {
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-  },
-})
