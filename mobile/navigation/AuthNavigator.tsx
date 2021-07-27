@@ -2,18 +2,16 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 
 import SignInScreen from '../screens/auth/SignInScreen'
-import { AuthParamList } from '../types'
+import VerifyPhoneScreen from '../screens/auth/VerifyPhoneScreen'
+import { AuthStackParamList } from '../types'
 
-const AuthStack = createStackNavigator<AuthParamList>()
+const AuthStack = createStackNavigator<AuthStackParamList>()
 
 export default function AuthNavigator() {
   return (
-    <AuthStack.Navigator>
-      <AuthStack.Screen
-        name="SignIn"
-        component={SignInScreen}
-        options={{ headerTitle: 'Sign In' }}
-      />
+    <AuthStack.Navigator headerMode="none">
+      <AuthStack.Screen name="SignIn" component={SignInScreen} />
+      <AuthStack.Screen name="VerifyPhone" component={VerifyPhoneScreen} />
     </AuthStack.Navigator>
   )
 }

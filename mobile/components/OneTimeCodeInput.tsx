@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react'
 import { Pressable, Text, View, TextInput } from 'react-native'
 import tw from 'tailwind-rn'
+import cn from 'classnames'
 
 const CODE_LENGTH = 4
 
-export default function OneTimeCodeInput({ value, onChange }: any) {
+export default function OneTimeCodeInput({ value, onChange, autoFocus }: any) {
   const [containerIsFocused, setContainerIsFocused] = useState(false)
 
   const codeDigitsArray = new Array(CODE_LENGTH).fill('')
@@ -14,6 +15,10 @@ export default function OneTimeCodeInput({ value, onChange }: any) {
   const handleOnPress = () => {
     setContainerIsFocused(true)
     ref?.current?.focus()
+  }
+
+  const handleOnFocus = () => {
+    setContainerIsFocused(true)
   }
 
   const handleOnBlur = () => {
@@ -31,28 +36,35 @@ export default function OneTimeCodeInput({ value, onChange }: any) {
     const isFocused = isCurrentDigit || (isLastDigit && isCodeFull)
 
     const containerStyle =
-      containerIsFocused && isFocused
-        ? tw('flex-1 border rounded p-3 border-blue-300')
-        : tw('flex-1 border rounded p-3 border-gray-300')
+      containerIsFocused && isFocused ? 'border-blue-300' : 'border-gray-300'
 
     return (
-      <View key={idx} style={containerStyle}>
-        <Text style={tw('text-lg text-black text-center')}>{digit}</Text>
+      <View
+        key={idx}
+        style={tw(
+          cn(
+            'w-14 h-14 border rounded-full p-3 justify-center items-center',
+            containerStyle
+          )
+        )}
+      >
+        <Text style={tw('text-lg text-black text-center font-semibold')}>
+          {digit}
+        </Text>
       </View>
     )
   }
   return (
-    <View style={tw('w-48 h-12')}>
-      <Pressable
-        style={tw('flex-1 flex-row justify-between')}
-        onPress={handleOnPress}
-      >
+    <View style={tw('w-full h-14')}>
+      <Pressable style={tw('flex-row justify-around')} onPress={handleOnPress}>
         {codeDigitsArray.map(toDigitInput)}
       </Pressable>
       <TextInput
+        autoFocus={autoFocus}
         ref={ref}
         value={value}
         onChangeText={onChange}
+        onFocus={handleOnFocus}
         onSubmitEditing={handleOnBlur}
         keyboardType="number-pad"
         returnKeyType="done"

@@ -1,5 +1,6 @@
 import qs from 'query-string'
 import config from './config'
+import { toE164 } from './utils'
 
 const sleep = (delay: number) =>
   new Promise((resolve) => setTimeout(resolve, delay))
@@ -69,7 +70,7 @@ const signIn = async (phone: string) => {
     method: 'post',
     body: {
       csrfToken,
-      email: phone,
+      email: toE164(phone),
     },
   })
 }
@@ -92,7 +93,7 @@ const verifyPhone = async ({
   token: string
 }) => {
   const params = {
-    email: phone,
+    email: toE164(phone),
     token,
   }
   const query = qs.stringify(params)

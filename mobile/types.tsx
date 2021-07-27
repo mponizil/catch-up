@@ -9,7 +9,7 @@ export type RootStackParamList = {
   NotFound: undefined
 }
 
-export type AuthParamList = {
+export type AuthStackParamList = {
   SignIn: undefined
   VerifyPhone: undefined
 }
