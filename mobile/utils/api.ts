@@ -64,6 +64,8 @@ const api = async (endpoint: string, options: ApiRequestOptions = {}) => {
   return result
 }
 
+const getSession = async () => api('/api/auth/session')
+
 const signIn = async (phone: string) => {
   const { csrfToken } = await api('/api/auth/csrf')
   await api('/api/auth/signin/email', {
@@ -97,7 +99,7 @@ const verifyPhone = async ({
     token,
   }
   const query = qs.stringify(params)
-  await api(`/api/auth/callback/email?${query}`, {
+  return api(`/api/auth/callback/email?${query}`, {
     method: 'post',
   })
 }
@@ -179,6 +181,7 @@ const feed = async () => {
 }
 
 export default {
+  getSession,
   signIn,
   signOut,
   verifyPhone,

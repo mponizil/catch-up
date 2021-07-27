@@ -1,19 +1,22 @@
 import * as React from 'react'
 import { StyleSheet } from 'react-native'
+import tw from 'tailwind-rn'
 
-import EditScreenInfo from '../components/EditScreenInfo'
 import { Text, View } from '../components/Themed'
+import Button from '../components/Button'
+import useAuth from '../hooks/useAuth'
 
 export default function SettingsScreen() {
+  const auth = useAuth()
   return (
-    <View style={styles.container}>
+    <View style={tw('flex-auto p-4')}>
       <Text style={styles.title}>Settings</Text>
       <View
         style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <EditScreenInfo path="/screens/SettingsScreen.tsx" />
+      <Button onPress={() => auth.signOut()} text="Sign Out" />
     </View>
   )
 }

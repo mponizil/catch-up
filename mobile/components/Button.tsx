@@ -41,6 +41,7 @@ export default function Button({ type, text, style, ...props }: IButtonProps) {
           )
         ),
         style,
+        props.disabled && tw('opacity-50'),
       ]}
       {...props}
     >

@@ -4,18 +4,19 @@ import { Text } from 'react-native'
 import tw from 'tailwind-rn'
 import { TextInputMask } from 'react-native-masked-text'
 
+import useAuth from '../../hooks/useAuth'
 import { AuthStackParamList } from '../../types'
 import { View } from '../../components/Themed'
 import Button from '../../components/Button'
 import { textInputStyle } from '../../components/TextInput'
-import api from '../../utils/api'
 
 export default function SignInScreen({
   navigation,
 }: StackScreenProps<AuthStackParamList, 'SignIn'>) {
+  const auth = useAuth()
   const [phone, setPhone] = useState('')
   const handleSignIn = async () => {
-    await api.signIn(phone)
+    await auth.signIn(phone)
     navigation.navigate('VerifyPhone')
   }
   const handleHasCode = async () => {
@@ -41,10 +42,20 @@ export default function SignInScreen({
         />
       </View>
       <View style={tw('w-full mb-4')}>
-        <Button type="primary" text="Sign In" onPress={handleSignIn} />
+        <Button
+          type="primary"
+          text="Sign In"
+          onPress={handleSignIn}
+          disabled={auth.loading}
+        />
       </View>
       <View>
-        <Button type="link" text="I have a code" onPress={handleHasCode} />
+        <Button
+          type="link"
+          text="I have a code"
+          onPress={handleHasCode}
+          disabled={auth.loading}
+        />
       </View>
     </View>
   )

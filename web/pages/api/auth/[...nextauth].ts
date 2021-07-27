@@ -20,6 +20,9 @@ export default NextAuth({
     Providers.Email({
       generateVerificationToken,
       sendVerificationRequest: async ({ identifier: phone, token }) => {
+        if (process.env.APP_ENVIRONMENT === 'local') {
+          return console.log(`(sms) Your Catch Up login code is ${token}`)
+        }
         await twilio.messages.create({
           body: `Your Catch Up login code is ${token}`,
           from: fromPhoneNumber,

@@ -9,9 +9,10 @@ import {
   DarkTheme,
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import * as React from 'react'
+import React from 'react'
 import { ColorSchemeName } from 'react-native'
 
+import useAuth from '../hooks/useAuth'
 import NotFoundScreen from '../screens/NotFoundScreen'
 import { RootStackParamList } from '../types'
 import AuthNavigator from './AuthNavigator'
@@ -38,10 +39,18 @@ export default function Navigation({
 const Stack = createStackNavigator<RootStackParamList>()
 
 function RootNavigator() {
+  const { session, isSignout } = useAuth()
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Auth" component={AuthNavigator} />
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
+      {session ? (
+        <Stack.Screen name="Root" component={BottomTabNavigator} />
+      ) : (
+        <Stack.Screen
+          name="Auth"
+          component={AuthNavigator}
+          options={{ animationTypeForReplace: isSignout ? 'pop' : 'push' }}
+        />
+      )}
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
