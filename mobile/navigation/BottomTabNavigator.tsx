@@ -62,7 +62,7 @@ const FeedStack = createStackNavigator<FeedParamList>()
 
 function FeedNavigator() {
   return (
-    <FeedStack.Navigator>
+    <FeedStack.Navigator headerMode="none">
       <FeedStack.Screen
         name="FeedScreen"
         component={FeedScreen}

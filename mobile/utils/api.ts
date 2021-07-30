@@ -1,4 +1,5 @@
 import qs from 'query-string'
+import { DateTime } from 'luxon'
 import config from './config'
 import { toE164 } from './utils'
 
@@ -125,57 +126,57 @@ const feed = async () => {
       id: 'dan-shipper',
       firstName: 'Dan',
       lastName: 'Shipper',
-      photoUrl:
-        'https://pbs.twimg.com/profile_images/950485033910964224/rW6Pna6R_400x400.jpg',
+      photoUrl: 'http://localhost:8080/dan.jpg',
       status: Status.Busy,
+      lastSeen: DateTime.local().minus({ hours: 2, minutes: 8 }),
     },
     {
       id: 'hursh-agrawal',
       firstName: 'Hursh',
       lastName: 'Agrawal',
-      photoUrl:
-        'https://pbs.twimg.com/profile_images/1417270215/hursh_1307461900_34_small_400x400.jpg',
+      photoUrl: 'http://localhost:8080/hursh.jpg',
       status: Status.Busy,
+      lastSeen: DateTime.local().minus({ hours: 3, minutes: 8 }),
     },
     {
       id: 'ian-arnold',
       firstName: 'Ian',
       lastName: 'Arnold',
-      photoUrl:
-        'https://scontent-sjc3-1.cdninstagram.com/v/t51.2885-19/s320x320/81428850_2512845308995846_5382404795749367808_n.jpg?tp=1&_nc_ht=scontent-sjc3-1.cdninstagram.com&_nc_ohc=KYGxh7ht-CgAX-ClIc1&edm=ABfd0MgBAAAA&ccb=7-4&oh=44d8301697950713483a69ca8b128c14&oe=60ED2DB0&_nc_sid=7bff83',
+      photoUrl: 'http://localhost:8080/ian.jpg',
       status: Status.Free,
+      lastSeen: DateTime.local().minus({ hours: 5 }),
     },
     {
       id: 'david-felzer',
       firstName: 'David',
       lastName: 'Felzer',
-      photoUrl:
-        'https://scontent-sjc3-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/76960942_2858385047545504_2370869350772087577_n.jpg?_nc_ht=scontent-sjc3-1.cdninstagram.com&_nc_cat=104&_nc_ohc=IE70iXEM6mkAX9gnqrv&edm=AP_V10EBAAAA&ccb=7-4&oh=136f4cff29a624e0c57b620bed8012ab&oe=60ECE8EE&_nc_sid=4f375e',
+      photoUrl: 'http://localhost:8080/felzer.jpg',
       status: Status.Busy,
+      lastSeen: DateTime.local().minus({ hours: 12, minutes: 23 }),
     },
     {
       id: 'anna-kobara',
       firstName: 'Anna',
       lastName: 'Kobara',
-      photoUrl:
-        'https://scontent-sjc3-1.cdninstagram.com/v/t51.2885-19/s320x320/11374305_1658598561047862_890771928_a.jpg?tp=1&_nc_ht=scontent-sjc3-1.cdninstagram.com&_nc_ohc=6eHFyoYTi4UAX_hk1jf&tn=yrMzdxpK2u5iVXwv&edm=ABfd0MgBAAAA&ccb=7-4&oh=10315c482655699173026744e91dc684&oe=60ED2324&_nc_sid=7bff83',
+      photoUrl: 'http://localhost:8080/anna.jpg',
       status: Status.Busy,
+      lastSeen: DateTime.local().minus({ hours: 54, minutes: 54 }),
     },
     {
       id: 'paulina-kurtz',
       firstName: 'Paulina',
       lastName: 'Kurtz',
-      photoUrl:
-        'https://scontent-sjc3-1.cdninstagram.com/v/t51.2885-19/s320x320/195359422_485225232688340_8096613028852566863_n.jpg?tp=1&_nc_ht=scontent-sjc3-1.cdninstagram.com&_nc_ohc=WeLr2peeWuEAX9Ovamx&edm=ABfd0MgBAAAA&ccb=7-4&oh=419d4cdfda36d4be65b4370053bc2d39&oe=60ECAE98&_nc_sid=7bff83',
+      photoUrl: 'http://localhost:8080/paulina.jpg',
       status: Status.Busy,
+      lastSeen: DateTime.local().minus({ hours: 23, minutes: 9 }),
     },
     {
       id: 'sawyer-huff',
       firstName: 'Sawyer',
       lastName: 'Huff',
-      photoUrl:
-        'https://scontent-sjc3-1.cdninstagram.com/v/t51.2885-19/s320x320/178508732_157672949614463_6789226718685248840_n.jpg?tp=1&_nc_ht=scontent-sjc3-1.cdninstagram.com&_nc_ohc=_GoANp3_Q0UAX_b-JMO&edm=ABfd0MgBAAAA&ccb=7-4&oh=4ed999e5e3f9d1c2c20d36ba51d8eb85&oe=60EE3930&_nc_sid=7bff83',
+      photoUrl: 'http://localhost:8080/sawyer.jpg',
       status: Status.Busy,
+      lastSeen: DateTime.local().minus({ hours: 22, minutes: 13 }),
     },
   ]
 }

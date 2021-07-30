@@ -16,6 +16,9 @@ export default function SignInScreen({
   const auth = useAuth()
   const [phone, setPhone] = useState('')
   const handleSignIn = async () => {
+    if (!phone) {
+      return
+    }
     await auth.signIn(phone)
     navigation.navigate('VerifyPhone')
   }

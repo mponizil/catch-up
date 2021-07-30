@@ -1,7 +1,9 @@
 import 'react-native-gesture-handler'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
+import { SafeAreaView } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import tw from 'tailwind-rn'
 
 import { AuthProvider } from './hooks/useAuth'
 import useCachedResources from './hooks/useCachedResources'
@@ -18,8 +20,10 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <AuthProvider>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
+          <SafeAreaView style={tw('flex-auto')}>
+            <Navigation colorScheme={colorScheme} />
+            <StatusBar />
+          </SafeAreaView>
         </AuthProvider>
       </SafeAreaProvider>
     )
