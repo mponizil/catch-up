@@ -115,7 +115,7 @@ const me = async () => {
     lastName: 'Ponizil',
     photoUrl:
       'https://scontent-sjc3-1.cdninstagram.com/v/t51.2885-19/s320x320/123768498_278226950232755_2476923715086786316_n.jpg?tp=1&_nc_ht=scontent-sjc3-1.cdninstagram.com&_nc_ohc=3UTyey8jUfgAX_xZm_t&edm=ABfd0MgBAAAA&ccb=7-4&oh=bf1a31f84ea882fbb004a3e3d30dae3b&oe=60EE3EA4&_nc_sid=7bff83',
-    status: Status.Busy,
+    status: Status.Free,
   }
 }
 
@@ -177,6 +177,30 @@ const feed = async () => {
       photoUrl: 'http://localhost:8080/sawyer.jpg',
       status: Status.Busy,
       lastSeen: DateTime.local().minus({ hours: 22, minutes: 13 }),
+    },
+    {
+      id: 'hursh-agrawal2',
+      firstName: 'Hursh',
+      lastName: 'Agrawal',
+      photoUrl: 'http://localhost:8080/hursh.jpg',
+      status: Status.Busy,
+      lastSeen: DateTime.local().minus({ hours: 3, minutes: 8 }),
+    },
+    {
+      id: 'ian-arnold2',
+      firstName: 'Ian',
+      lastName: 'Arnold',
+      photoUrl: 'http://localhost:8080/ian.jpg',
+      status: Status.Busy,
+      lastSeen: DateTime.local().minus({ hours: 5 }),
+    },
+    {
+      id: 'david-felzer2',
+      firstName: 'David',
+      lastName: 'Felzer',
+      photoUrl: 'http://localhost:8080/felzer.jpg',
+      status: Status.Busy,
+      lastSeen: DateTime.local().minus({ hours: 12, minutes: 23 }),
     },
   ]
 }
