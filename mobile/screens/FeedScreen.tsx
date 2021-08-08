@@ -1,14 +1,19 @@
 import * as React from 'react'
-import { Image, ScrollView, Pressable } from 'react-native'
+import { Image, ScrollView } from 'react-native'
+import { StackScreenProps } from '@react-navigation/stack'
 import useAsync from 'react-use/lib/useAsync'
 import tw, { getColor } from 'tailwind-rn'
 import { ChatIcon, PhoneIcon } from 'react-native-heroicons/solid'
 
+import { AppStackParamList } from '../types'
 import { Text, View } from '../components/Themed'
+import Button from '../components/Button'
 import { personName } from '../utils/utils'
 import api, { Status, IContact } from '../utils/api'
 
-export default function FeedScreen() {
+export default function FeedScreen({
+  navigation,
+}: StackScreenProps<AppStackParamList, 'AppTabs'>) {
   const {
     loading: loadingMe,
     value: me,
@@ -21,7 +26,7 @@ export default function FeedScreen() {
   } = useAsync(() => api.feed())
 
   const handlePressStatus = () => {
-    console.log('set my status')
+    navigation.navigate('SetStatusModal')
   }
 
   const handleMessage = (contact: IContact) => {
@@ -58,10 +63,10 @@ export default function FeedScreen() {
           'w-full pt-6 flex-row justify-center absolute bg-transparent z-10'
         )}
       >
-        <Pressable
+        <Button
           onPress={handlePressStatus}
           style={{
-            ...tw('py-2 px-4 flex-row items-center rounded bg-white'),
+            ...tw('py-2 px-4 flex-row items-center rounded-full bg-white'),
             shadowColor: '#000',
             shadowOpacity: 0.1,
             shadowOffset: {
@@ -79,7 +84,7 @@ export default function FeedScreen() {
               until 8:45pm
             </Text>
           </View>
-        </Pressable>
+        </Button>
       </View>
       <ScrollView style={tw('bg-white flex-auto pt-20')}>
         {free.map((contact) => (
@@ -102,18 +107,18 @@ export default function FeedScreen() {
                 </View>
               </View>
               <View style={tw('flex-row')}>
-                <Pressable
+                <Button
                   onPress={() => handleMessage(contact)}
                   style={tw('bg-gray-200 rounded-full p-2')}
                 >
                   <ChatIcon color={getColor('gray-400')} size={20} />
-                </Pressable>
-                <Pressable
+                </Button>
+                <Button
                   onPress={() => handleCall(contact)}
                   style={tw('bg-gray-200 rounded-full p-2 ml-3')}
                 >
                   <PhoneIcon color={getColor('gray-400')} size={20} />
-                </Pressable>
+                </Button>
               </View>
             </View>
             <View style={tw('my-1 mx-4 bg-gray-100 h-px')} />

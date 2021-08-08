@@ -25,7 +25,12 @@ export default function VerifyPhoneScreen() {
         <OneTimeCodeInput value={code} onChange={setCode} autoFocus />
       </View>
       <View style={tw('w-full mb-4')}>
-        <Button onPress={handleVerify} text="Verify" disabled={auth.loading} />
+        <Button
+          type="default"
+          onPress={handleVerify}
+          text="Verify"
+          disabled={auth.loading}
+        />
       </View>
     </View>
   )

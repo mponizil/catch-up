@@ -5,7 +5,7 @@
 
 export type RootStackParamList = {
   Auth: undefined
-  Root: undefined
+  App: undefined
   NotFound: undefined
 }
 
@@ -14,15 +14,20 @@ export type AuthStackParamList = {
   VerifyPhone: undefined
 }
 
-export type BottomTabParamList = {
+export type AppStackParamList = {
+  AppTabs: undefined
+  SetStatusModal: undefined
+}
+
+export type AppTabsParamList = {
   Feed: undefined
   Settings: undefined
 }
 
-export type FeedParamList = {
+export type FeedStackParamList = {
   FeedScreen: undefined
 }
 
-export type SettingsParamList = {
+export type SettingsStackParamList = {
   SettingsScreen: undefined
 }

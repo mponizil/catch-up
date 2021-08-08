@@ -7,34 +7,57 @@ import { Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
+import { View, Text } from 'react-native'
 
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
 import FeedScreen from '../screens/FeedScreen'
 import SettingsScreen from '../screens/SettingsScreen'
-import { BottomTabParamList, FeedParamList, SettingsParamList } from '../types'
+import SetStatusModal from '../screens/SetStatusModal'
+import {
+  AppStackParamList,
+  AppTabsParamList,
+  FeedStackParamList,
+  SettingsStackParamList,
+} from '../types'
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>()
+const AppStack = createStackNavigator<AppStackParamList>()
 
-export default function BottomTabNavigator() {
+export default function AppNavigator() {
+  return (
+    <AppStack.Navigator screenOptions={{ headerShown: false }}>
+      <AppStack.Group>
+        <AppStack.Screen name="AppTabs" component={AppTabsNavigator} />
+      </AppStack.Group>
+      <AppStack.Group screenOptions={{ presentation: 'modal' }}>
+        <AppStack.Screen name="SetStatusModal" component={SetStatusModal} />
+      </AppStack.Group>
+    </AppStack.Navigator>
+  )
+}
+
+const AppTabs = createBottomTabNavigator<AppTabsParamList>()
+
+function AppTabsNavigator() {
   const colorScheme = useColorScheme()
 
   return (
-    <BottomTab.Navigator
+    <AppTabs.Navigator
       initialRouteName="Feed"
-      tabBarOptions={{
-        activeTintColor: Colors[colorScheme].tint,
-        showLabel: false,
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarShowLabel: false,
       }}
     >
-      <BottomTab.Screen
+      <AppTabs.Screen
         name="Feed"
         component={FeedNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
-      <BottomTab.Screen
+      <AppTabs.Screen
         name="Settings"
         component={SettingsNavigator}
         options={{
@@ -43,7 +66,7 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
-    </BottomTab.Navigator>
+    </AppTabs.Navigator>
   )
 }
 
@@ -58,21 +81,17 @@ function TabBarIcon(props: {
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const FeedStack = createStackNavigator<FeedParamList>()
+const FeedStack = createStackNavigator<FeedStackParamList>()
 
 function FeedNavigator() {
   return (
-    <FeedStack.Navigator headerMode="none">
-      <FeedStack.Screen
-        name="FeedScreen"
-        component={FeedScreen}
-        options={{ headerTitle: 'Catch Up' }}
-      />
+    <FeedStack.Navigator screenOptions={{ headerShown: false }}>
+      <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
     </FeedStack.Navigator>
   )
 }
 
-const SettingsStack = createStackNavigator<SettingsParamList>()
+const SettingsStack = createStackNavigator<SettingsStackParamList>()
 
 function SettingsNavigator() {
   return (

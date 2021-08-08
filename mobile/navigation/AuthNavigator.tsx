@@ -9,7 +9,7 @@ const AuthStack = createStackNavigator<AuthStackParamList>()
 
 export default function AuthNavigator() {
   return (
-    <AuthStack.Navigator headerMode="none">
+    <AuthStack.Navigator screenOptions={{ headerShown: false }}>
       <AuthStack.Screen name="SignIn" component={SignInScreen} />
       <AuthStack.Screen name="VerifyPhone" component={VerifyPhoneScreen} />
     </AuthStack.Navigator>

@@ -13,11 +13,10 @@ import React from 'react'
 import { ColorSchemeName } from 'react-native'
 
 import useAuth from '../hooks/useAuth'
-import NotFoundScreen from '../screens/NotFoundScreen'
 import { RootStackParamList } from '../types'
+import NotFoundScreen from '../screens/NotFoundScreen'
 import AuthNavigator from './AuthNavigator'
-import BottomTabNavigator from './BottomTabNavigator'
-import LinkingConfiguration from './LinkingConfiguration'
+import AppNavigator from './AppNavigator'
 
 export default function Navigation({
   colorScheme,
@@ -26,7 +25,6 @@ export default function Navigation({
 }) {
   return (
     <NavigationContainer
-      linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
     >
       <RootNavigator />
@@ -43,7 +41,7 @@ function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {session ? (
-        <Stack.Screen name="Root" component={BottomTabNavigator} />
+        <Stack.Screen name="App" component={AppNavigator} />
       ) : (
         <Stack.Screen
           name="Auth"
