@@ -20,7 +20,7 @@ const TextStylesForType = {
   plain: '',
   default: 'text-gray-900',
   primary: 'text-white',
-  link: 'text-blue-500 font-normal',
+  link: 'text-blue-500 font-medium',
 }
 
 export interface IButtonProps extends TouchableOpacityProps {
