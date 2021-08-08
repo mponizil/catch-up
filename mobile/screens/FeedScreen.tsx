@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Image, ScrollView, Pressable } from 'react-native'
 import useAsync from 'react-use/lib/useAsync'
-import tw from 'tailwind-rn'
+import tw, { getColor } from 'tailwind-rn'
 import { ChatIcon, PhoneIcon } from 'react-native-heroicons/solid'
 
 import { Text, View } from '../components/Themed'
@@ -83,11 +83,8 @@ export default function FeedScreen() {
       </View>
       <ScrollView style={tw('bg-white flex-auto pt-20')}>
         {free.map((contact) => (
-          <>
-            <View
-              style={tw('flex-row items-center px-4 py-2')}
-              key={contact.id}
-            >
+          <View key={contact.id}>
+            <View style={tw('flex-row items-center px-4 py-2')}>
               <View style={tw('flex-auto flex-row items-center')}>
                 <Image
                   style={tw('w-14 h-14 rounded-full')}
@@ -109,25 +106,22 @@ export default function FeedScreen() {
                   onPress={() => handleMessage(contact)}
                   style={tw('bg-gray-200 rounded-full p-2')}
                 >
-                  <ChatIcon color="#A1A1AA" size={20} />
+                  <ChatIcon color={getColor('gray-400')} size={20} />
                 </Pressable>
                 <Pressable
                   onPress={() => handleCall(contact)}
                   style={tw('bg-gray-200 rounded-full p-2 ml-3')}
                 >
-                  <PhoneIcon color="#A1A1AA" size={20} />
+                  <PhoneIcon color={getColor('gray-400')} size={20} />
                 </Pressable>
               </View>
             </View>
-            <View style={tw('m-1 bg-gray-100 h-px')} />
-          </>
+            <View style={tw('my-1 mx-4 bg-gray-100 h-px')} />
+          </View>
         ))}
         {busy.map((contact) => (
-          <>
-            <View
-              style={tw('flex-row items-center px-4 py-2')}
-              key={contact.id}
-            >
+          <View key={contact.id}>
+            <View style={tw('flex-row items-center px-4 py-2')}>
               <Image
                 style={tw('w-14 h-14 rounded-full')}
                 source={{
@@ -140,8 +134,8 @@ export default function FeedScreen() {
                 </Text>
               </View>
             </View>
-            <View style={tw('m-1 bg-gray-100 h-px')} />
-          </>
+            <View style={tw('my-1 mx-2 bg-gray-100 h-px')} />
+          </View>
         ))}
       </ScrollView>
     </>
