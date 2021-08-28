@@ -119,6 +119,7 @@ const me = async () => {
   }
 }
 
+const TEMP_ASSET_HOST = 'http://192.168.0.12:8080'
 const feed = async () => {
   await sleep(500)
   return [
@@ -126,81 +127,90 @@ const feed = async () => {
       id: 'dan-shipper',
       firstName: 'Dan',
       lastName: 'Shipper',
-      photoUrl: 'http://localhost:8080/dan.jpg',
+      photoUrl: `${TEMP_ASSET_HOST}/dan.jpg`,
       status: Status.Busy,
-      lastSeen: DateTime.local().minus({ hours: 2, minutes: 8 }),
+      lastFree: {
+        start: DateTime.local()
+          .minus({ hours: 2, minutes: 8 })
+          .minus({ minutes: 30 }),
+        end: DateTime.local().minus({ hours: 2, minutes: 8 }),
+      },
     },
     {
       id: 'hursh-agrawal',
       firstName: 'Hursh',
       lastName: 'Agrawal',
-      photoUrl: 'http://localhost:8080/hursh.jpg',
+      photoUrl: `${TEMP_ASSET_HOST}/hursh.jpg`,
       status: Status.Busy,
-      lastSeen: DateTime.local().minus({ hours: 3, minutes: 8 }),
+      lastFree: {
+        start: DateTime.local()
+          .minus({ hours: 3, minutes: 8 })
+          .minus({ minutes: 30 }),
+        end: DateTime.local().minus({ hours: 3, minutes: 8 }),
+      },
     },
     {
       id: 'ian-arnold',
       firstName: 'Ian',
       lastName: 'Arnold',
-      photoUrl: 'http://localhost:8080/ian.jpg',
+      photoUrl: `${TEMP_ASSET_HOST}/ian.jpg`,
       status: Status.Free,
-      lastSeen: DateTime.local().minus({ hours: 5 }),
+      lastFree: {
+        start: DateTime.local().minus({ hours: 1 }),
+        end: DateTime.local().plus({ hours: 1 }),
+      },
     },
     {
       id: 'david-felzer',
       firstName: 'David',
       lastName: 'Felzer',
-      photoUrl: 'http://localhost:8080/felzer.jpg',
+      photoUrl: `${TEMP_ASSET_HOST}/felzer.jpg`,
       status: Status.Busy,
-      lastSeen: DateTime.local().minus({ hours: 12, minutes: 23 }),
+      lastFree: {
+        start: DateTime.local()
+          .minus({ hours: 12, minutes: 23 })
+          .minus({ minutes: 30 }),
+        end: DateTime.local().minus({ hours: 12, minutes: 23 }),
+      },
     },
     {
       id: 'anna-kobara',
       firstName: 'Anna',
       lastName: 'Kobara',
-      photoUrl: 'http://localhost:8080/anna.jpg',
+      photoUrl: `${TEMP_ASSET_HOST}/anna.jpg`,
       status: Status.Busy,
-      lastSeen: DateTime.local().minus({ hours: 54, minutes: 54 }),
+      lastFree: {
+        start: DateTime.local()
+          .minus({ hours: 54, minutes: 54 })
+          .minus({ minutes: 30 }),
+        end: DateTime.local().minus({ hours: 54, minutes: 54 }),
+      },
     },
     {
       id: 'paulina-kurtz',
       firstName: 'Paulina',
       lastName: 'Kurtz',
-      photoUrl: 'http://localhost:8080/paulina.jpg',
+      photoUrl: `${TEMP_ASSET_HOST}/paulina.jpg`,
       status: Status.Busy,
-      lastSeen: DateTime.local().minus({ hours: 23, minutes: 9 }),
+      lastFree: {
+        start: DateTime.local()
+          .minus({ hours: 23, minutes: 9 })
+          .minus({ minutes: 30 }),
+        end: DateTime.local().minus({ hours: 23, minutes: 9 }),
+      },
     },
     {
       id: 'sawyer-huff',
       firstName: 'Sawyer',
       lastName: 'Huff',
-      photoUrl: 'http://localhost:8080/sawyer.jpg',
+      photoUrl: `${TEMP_ASSET_HOST}/sawyer.jpg`,
       status: Status.Busy,
-      lastSeen: DateTime.local().minus({ hours: 22, minutes: 13 }),
-    },
-    {
-      id: 'hursh-agrawal2',
-      firstName: 'Hursh',
-      lastName: 'Agrawal',
-      photoUrl: 'http://localhost:8080/hursh.jpg',
-      status: Status.Busy,
-      lastSeen: DateTime.local().minus({ hours: 3, minutes: 8 }),
-    },
-    {
-      id: 'ian-arnold2',
-      firstName: 'Ian',
-      lastName: 'Arnold',
-      photoUrl: 'http://localhost:8080/ian.jpg',
-      status: Status.Busy,
-      lastSeen: DateTime.local().minus({ hours: 5 }),
-    },
-    {
-      id: 'david-felzer2',
-      firstName: 'David',
-      lastName: 'Felzer',
-      photoUrl: 'http://localhost:8080/felzer.jpg',
-      status: Status.Busy,
-      lastSeen: DateTime.local().minus({ hours: 12, minutes: 23 }),
+      lastFree: {
+        start: DateTime.local()
+          .minus({ hours: 22, minutes: 13 })
+          .minus({ minutes: 30 }),
+        end: DateTime.local().minus({ hours: 22, minutes: 13 }),
+      },
     },
   ]
 }

@@ -4,6 +4,7 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
+    "ios:lan": "APP_ENVIRONMENT=lan expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll"
