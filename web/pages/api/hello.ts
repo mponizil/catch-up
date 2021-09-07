@@ -1,19 +1,11 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { getSession } from 'next-auth/client'
+import nextConnect from 'next-connect'
+import auth from '../../middleware/auth'
+import { ApiRequest, ApiResponse } from '../../types/api'
 
-export default async function handle(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const session = await getSession({ req })
-  if (session) {
-    res.json(session)
-  } else {
-    res.status(403).json({
-      error: {
-        code: '403_001',
-        message: 'no active session',
-      },
-    })
-  }
-}
+const handler = nextConnect()
+
+handler.use(auth).get((req: ApiRequest, res: ApiResponse) => {
+  res.json({ user: req.user })
+})
+
+export default handler

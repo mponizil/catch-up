@@ -11,9 +11,10 @@ let prisma: PrismaClient
 if (process.env.NODE_ENV === 'production') {
   prisma = new PrismaClient()
 } else {
-  if (!global.prisma) {
-    global.prisma = new PrismaClient()
+  const g = global as any
+  if (!g.prisma) {
+    g.prisma = new PrismaClient()
   }
-  prisma = global.prisma
+  prisma = g.prisma
 }
 export default prisma
