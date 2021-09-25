@@ -16,7 +16,7 @@ export default function SettingsScreen() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <Button type="default" onPress={() => auth.signOut()} text="Sign Out" />
+      <Button type="default" onPress={() => auth.logout()} text="Logout" />
     </View>
   )
 }

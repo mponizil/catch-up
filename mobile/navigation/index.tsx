@@ -37,7 +37,7 @@ export default function Navigation({
 const Stack = createStackNavigator<RootStackParamList>()
 
 function RootNavigator() {
-  const { session, isSignout } = useAuth()
+  const { session, isLogout } = useAuth()
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {session ? (
@@ -46,7 +46,7 @@ function RootNavigator() {
         <Stack.Screen
           name="Auth"
           component={AuthNavigator}
-          options={{ animationTypeForReplace: isSignout ? 'pop' : 'push' }}
+          options={{ animationTypeForReplace: isLogout ? 'pop' : 'push' }}
         />
       )}
       <Stack.Screen

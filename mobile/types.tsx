@@ -10,7 +10,7 @@ export type RootStackParamList = {
 }
 
 export type AuthStackParamList = {
-  SignIn: undefined
+  Login: undefined
   VerifyPhone: undefined
 }
 

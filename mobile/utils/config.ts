@@ -11,12 +11,12 @@ const environment: AppEnvironment =
 const configByEnv = {
   [AppEnvironment.Local]: {
     api: {
-      host: 'http://127.0.0.1:3000',
+      host: 'http://127.0.0.1:3333',
     },
   },
   [AppEnvironment.LAN]: {
     api: {
-      host: 'http://192.168.0.12:3000',
+      host: 'http://192.168.0.12:3333',
     },
   },
 }

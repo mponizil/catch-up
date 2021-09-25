@@ -17,10 +17,10 @@ export interface AuthContextType {
   session: ISession
   loading: boolean
   error?: any
-  isSignout: boolean
-  signIn: (phone: string) => void
+  isLogout: boolean
+  login: (phone: string) => void
   verifyPhone: (params: { phone: string; token: string }) => void
-  signOut: () => void
+  logout: () => void
 }
 
 const parseSession = (session: ISession) => (isEmpty(session) ? null : session)
@@ -36,7 +36,7 @@ export function AuthProvider({
   const [error, setError] = useState<Response | null>()
   const [loading, setLoading] = useState<boolean>(false)
   const [loadingInitial, setLoadingInitial] = useState<boolean>(true)
-  const [isSignout, setIsSignout] = useState(false)
+  const [isLogout, setIsLogout] = useState(false)
 
   useEffect(() => {
     api
@@ -46,10 +46,10 @@ export function AuthProvider({
       .finally(() => setLoadingInitial(false))
   }, [])
 
-  function signIn(phone: string) {
+  function login(phone: string) {
     setLoading(true)
     api
-      .signIn(phone)
+      .login(phone)
       .catch((newError) => setError(newError))
       .finally(() => setLoading(false))
   }
@@ -64,23 +64,23 @@ export function AuthProvider({
       .finally(() => setLoading(false))
   }
 
-  function signOut() {
-    setIsSignout(true)
+  function logout() {
+    setIsLogout(true)
     api
-      .signOut()
+      .logout()
       .then(() => setSession(null))
-      .finally(() => setIsSignout(false))
+      .finally(() => setIsLogout(false))
   }
 
   const contextValue = useMemo(
     () => ({
       session,
       loading,
-      isSignout,
+      isLogout,
       error,
-      signIn,
+      login,
       verifyPhone,
-      signOut,
+      logout,
     }),
     [session, loading, error]
   ) as AuthContextType

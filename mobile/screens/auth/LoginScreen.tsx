@@ -10,16 +10,16 @@ import { View } from '../../components/Themed'
 import Button from '../../components/Button'
 import { textInputStyle } from '../../components/TextInput'
 
-export default function SignInScreen({
+export default function LoginScreen({
   navigation,
-}: StackScreenProps<AuthStackParamList, 'SignIn'>) {
+}: StackScreenProps<AuthStackParamList, 'Login'>) {
   const auth = useAuth()
   const [phone, setPhone] = useState('')
-  const handleSignIn = async () => {
+  const handleLogin = async () => {
     if (!phone) {
       return
     }
-    await auth.signIn(phone)
+    await auth.login(phone)
     navigation.navigate('VerifyPhone')
   }
   const handleHasCode = async () => {
@@ -28,7 +28,7 @@ export default function SignInScreen({
   return (
     <View style={tw('flex-auto p-4 pt-24')}>
       <View style={tw('mb-16')}>
-        <Text style={tw('text-base')}>Sign in with your phone number</Text>
+        <Text style={tw('text-base')}>Login with your phone number</Text>
       </View>
       <View style={tw('w-full mb-4')}>
         <TextInputMask
@@ -47,8 +47,8 @@ export default function SignInScreen({
       <View style={tw('w-full mb-4')}>
         <Button
           type="primary"
-          text="Sign In"
-          onPress={handleSignIn}
+          text="Login"
+          onPress={handleLogin}
           disabled={auth.loading}
         />
       </View>

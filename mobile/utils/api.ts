@@ -1,4 +1,3 @@
-import qs from 'query-string'
 import { DateTime } from 'luxon'
 import config from './config'
 import { toE164 } from './utils'
@@ -42,49 +41,28 @@ const api = async (endpoint: string, options: ApiRequestOptions = {}) => {
       }
       return httpResponse
     })
-    .then((httpResponse) => httpResponse.text())
-    .then((text) => {
-      try {
-        return JSON.parse(text)
-      } catch {
-        console.warn(`(api) error parsing response as json`)
-        return {
-          error: {
-            code: '500',
-            message: 'error parsing response as json',
-            data: {
-              responseText: text,
-            },
-          },
-        }
-      }
-    })
-  if (!result?.error) {
-    console.info(`(api) [${method}] ${endpoint} result`, result)
+    .then((httpResponse) => httpResponse.json())
+  if (result?.errors) {
+    throw new Error(result.errors)
   }
+  console.info(`(api) [${method}] ${endpoint} result`, result)
   return result
 }
 
-const getSession = async () => api('/api/auth/session')
+const getSession = async () => api('/auth/session')
 
-const signIn = async (phone: string) => {
-  const { csrfToken } = await api('/api/auth/csrf')
-  await api('/api/auth/signin/email', {
+const login = async (phone: string) => {
+  await api('/auth/login', {
     method: 'post',
     body: {
-      csrfToken,
-      email: toE164(phone),
+      phone: toE164(phone),
     },
   })
 }
 
-const signOut = async () => {
-  const { csrfToken } = await api('/api/auth/csrf')
-  await api('/api/auth/signout', {
+const logout = async () => {
+  await api('/auth/logout', {
     method: 'post',
-    body: {
-      csrfToken,
-    },
   })
 }
 
@@ -94,18 +72,14 @@ const verifyPhone = async ({
 }: {
   phone: string
   token: string
-}) => {
-  const params = {
-    email: toE164(phone),
-    token,
-  }
-  const query = qs.stringify(params)
-  return api(`/api/auth/callback/email?${query}`, {
+}) =>
+  api(`/auth/verify`, {
     method: 'post',
+    body: {
+      phone: toE164(phone),
+      token,
+    },
   })
-}
-
-const hello = async () => api('/api/hello')
 
 const me = async () => {
   await sleep(200)
@@ -119,7 +93,7 @@ const me = async () => {
   }
 }
 
-const TEMP_ASSET_HOST = 'http://192.168.0.12:8080'
+const TEMP_ASSET_HOST = 'http://127.0.0.1:8081'
 const feed = async () => {
   await sleep(500)
   return [
@@ -217,10 +191,9 @@ const feed = async () => {
 
 export default {
   getSession,
-  signIn,
-  signOut,
+  login,
+  logout,
   verifyPhone,
-  hello,
   me,
   feed,
 }
