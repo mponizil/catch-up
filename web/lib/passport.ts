@@ -1,14 +1,16 @@
 import { DateTime } from 'luxon'
 import passport from 'passport'
 import Custom from 'passport-custom'
-import { User, VerificationRequest } from '@prisma/client'
+import { User } from '@prisma/client'
 import prisma from './prisma'
 
 passport.serializeUser(function (user: User, done) {
+  console.log('serializeUser', user)
   done(null, user.id)
 })
 
 passport.deserializeUser(async function (id: string, done) {
+  console.log('deserializeUser', id)
   const user = await prisma.user.findUnique({
     where: {
       id,
@@ -30,6 +32,11 @@ passport.use(
       return
     }
     if (verificationRequest.expires < DateTime.local().toJSDate()) {
+      await prisma.verificationRequest.delete({
+        where: {
+          id: verificationRequest.id,
+        },
+      })
       done(new Error('verification token is expired'))
       return
     }
@@ -51,6 +58,7 @@ passport.use(
         phoneVerifiedAt: DateTime.local().toJSDate(),
       },
     })
+    console.log('done', user)
     done(null, user)
   })
 )

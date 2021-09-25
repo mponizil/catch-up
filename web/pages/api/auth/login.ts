@@ -1,6 +1,8 @@
+import nc from 'next-connect'
 import { padStart, random } from 'lodash'
 import { parsePhoneNumber } from 'libphonenumber-js'
 import { DateTime } from 'luxon'
+import base from '../../../middleware/base'
 import { ApiRequest, ApiResponse } from '../../../types/api'
 import prisma from '../../../lib/prisma'
 import { twilio, fromPhoneNumber } from '../../../lib/twilio'
@@ -8,7 +10,9 @@ import { twilio, fromPhoneNumber } from '../../../lib/twilio'
 const toE164 = (phone: string) => parsePhoneNumber(phone, 'US').format('E.164')
 const generateVerificationToken = () => padStart(`${random(0, 9999)}`, 4, '0')
 
-export default async function login(req: ApiRequest, res: ApiResponse) {
+const handler = nc()
+
+handler.use(base).post(async (req: ApiRequest, res: ApiResponse) => {
   const user = await prisma.user.findUnique({
     where: {
       phone: req.body.phone,
@@ -38,5 +42,7 @@ export default async function login(req: ApiRequest, res: ApiResponse) {
     from: fromPhoneNumber,
     to: toE164(req.body.phone),
   })
-  return res.status(201).json({ message: 'verification code sent' })
-}
+  res.status(201).json({ message: 'verification code sent' })
+})
+
+export default handler

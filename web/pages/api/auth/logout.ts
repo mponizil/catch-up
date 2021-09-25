@@ -1,8 +1,8 @@
-import nextConnect from 'next-connect'
+import nc from 'next-connect'
 import auth from '../../../middleware/auth'
 import { ApiRequest, ApiResponse } from '../../../types/api'
 
-const handler = nextConnect()
+const handler = nc()
 
 handler.use(auth).delete((req: ApiRequest, res: ApiResponse) => {
   req.logOut()

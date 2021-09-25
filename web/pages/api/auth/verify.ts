@@ -1,12 +1,12 @@
-import nextConnect from 'next-connect'
+import nc from 'next-connect'
 import { ApiRequest, ApiResponse } from '../../../types/api'
-import auth from '../../../middleware/auth'
+import base from '../../../middleware/base'
 import passport from '../../../lib/passport'
 
-const handler = nextConnect()
+const handler = nc()
 
 handler
-  .use(auth)
+  .use(base)
   .post(
     passport.authenticate('sms-token'),
     (req: ApiRequest, res: ApiResponse) => {
