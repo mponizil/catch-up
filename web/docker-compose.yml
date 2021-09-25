@@ -3,7 +3,7 @@ version: '3'
 services:
   postgres:
     image: postgres:12-alpine
-    container_name: catch_up_postgres
+    container_name: catch_up_postgres_adonis
     ports:
       - '5432:5432'
     environment:
@@ -11,7 +11,7 @@ services:
       POSTGRES_USER: catch_up
       POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
-      - catch_up_postgres:/var/lib/postgresql/data
+      - catch_up_postgres_adonis:/var/lib/postgresql/data
 
 volumes:
-  catch_up_postgres:
+  catch_up_postgres_adonis:
