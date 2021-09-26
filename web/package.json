@@ -33,6 +33,7 @@
     "@adonisjs/session": "^6.0.0",
     "@adonisjs/shield": "^7.0.0",
     "@adonisjs/view": "^6.0.0",
+    "camelcase-keys": "^7.0.0",
     "libphonenumber-js": "^1.9.34",
     "lodash": "^4.17.21",
     "luxon": "^2.0.2",

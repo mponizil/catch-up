@@ -62,3 +62,13 @@ Route.post('auth/logout', async ({ auth }) => {
     message: 'user logged out',
   }
 })
+
+Route.get('feed', async ({ auth }) => {
+  const oneWeekAgo = DateTime.local().minus({ weeks: 1 })
+  return auth
+    .user!.related('contacts')
+    .query()
+    .preload('waves', (wavesQuery) => {
+      wavesQuery.where('starts_at', '>', oneWeekAgo.toISO()).orderBy('starts_at', 'desc')
+    })
+}).middleware('auth')

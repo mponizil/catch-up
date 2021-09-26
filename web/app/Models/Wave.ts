@@ -1,19 +1,23 @@
 import { DateTime } from 'luxon'
-import { column } from '@ioc:Adonis/Lucid/Orm'
+import { column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import BaseModel from './BaseModel'
+import User from './User'
 
-export default class LoginToken extends BaseModel {
+export default class Wave extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public identifier: string
+  public userId: number
+
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>
 
   @column()
-  public token: string
+  public startsAt: DateTime
 
   @column()
-  public expiresAt: DateTime
+  public endsAt: DateTime | null
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
